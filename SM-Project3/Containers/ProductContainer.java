@@ -1,5 +1,6 @@
 package Containers;
-
+import Models.*;
+import java.util.ArrayList;
 
 /**
  * Write a description of class ProductContainer here.
@@ -9,27 +10,38 @@ package Containers;
  */
 public class ProductContainer
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    private ArrayList<Product> products;
+    private static ProductContainer instance;
 
-    /**
-     * Constructor for objects of class ProductContainer
-     */
-    public ProductContainer()
-    {
-        // initialise instance variables
-        x = 0;
+    private ProductContainer(){
+        products = new ArrayList<>();
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public static ProductContainer getInstance(){
+        if(instance == null){
+            instance = new ProductContainer();
+        }
+        return instance;
+    }
+
+    public void saveProduct(Product product){
+        products.add(product);
+    }
+
+    public Product findProduct(int productNo){
+        Product product = null;
+        boolean found = false;
+        int i = 0;
+        while(!found && i < products.size()){
+            Product p = products.get(i);
+            if(product.getProductNo()==productNo){
+                product = p;
+                found = true;
+            }
+            else {
+                i++;
+            }
+        }
+        return product;
     }
 }
