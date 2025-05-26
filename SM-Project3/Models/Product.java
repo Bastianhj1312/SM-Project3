@@ -1,3 +1,5 @@
+package Models;
+
 public class Product {
     private int productNo;
     private int quantity;
