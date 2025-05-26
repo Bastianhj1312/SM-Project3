@@ -9,13 +9,13 @@ public class SimpleProduct extends Product {
     private String supplierId;
     private String sku;
 
-    public SimpleProduct(int productNo, int quantity) {
+    public SimpleProduct(int productNo, int quantity, String productName, String manufacturer, String model,
+                         double recommendedRetailPrice, String supplierId, String sku) {
         super(productNo, quantity);
         this.productName = productName;
         this.manufacturer = manufacturer;
         this.model = model;
         this.recommendedRetailPrice = recommendedRetailPrice;
-        this.quantity = quantity;
         this.supplierId = supplierId;
         this.sku = sku;
     }
@@ -90,9 +90,8 @@ public class SimpleProduct extends Product {
         this.sku = sku;
     }
 
-    //TODO, måske den skal være i product(abstract) klassen?
-    //@Override
-    //public double getPrice() {
-    //    return getQuantity() * pricePerUnit;
-    //}
+     @Override
+    public double getPrice() {
+        return getQuantity() * recommendedRetailPrice;
+    }
 }

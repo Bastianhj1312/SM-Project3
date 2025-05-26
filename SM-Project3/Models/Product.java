@@ -11,10 +11,6 @@ public abstract class Product {
     public Product(int productNo, int quantity){
         this.productNo = productNo;
         this.quantity = quantity;
-        this.description = description;
-        this.category = category;
-        this.sellingPrice = sellingPrice;
-        this.costPrice = costPrice;
     }
 
     public int getProductNo(){
