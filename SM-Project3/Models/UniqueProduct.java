@@ -1,23 +1,27 @@
 package Models;
 
 public class UniqueProduct extends Product {
-    private double fixedPrice;
+    // Inherits all fields from SimpleProduct
+    private String serialNumber;
 
     public UniqueProduct(int productNo, double fixedPrice) {
         super(productNo, 1);  // Unique products always have quantity = 1
-        this.fixedPrice = fixedPrice;
+        this.serialNumber = serialNumber;
     }
 
-    public double getFixedPrice() {
-        return fixedPrice;
+    // Setter for serialNumber
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
-    public void setFixedPrice(double fixedPrice) {
-        this.fixedPrice = fixedPrice;
+    // Getter for serialNumber
+    public String getSerialNumber() {
+        return serialNumber;
     }
 
-    @Override
-    public double getPrice() {
-        return fixedPrice;
-    }
+    //TODO
+    //@Override
+    //public double getPrice() {
+    //    return serialNumber;
+    //}
 }
