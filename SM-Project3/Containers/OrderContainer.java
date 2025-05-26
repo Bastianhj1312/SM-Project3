@@ -23,28 +23,38 @@ public class OrderContainer {
     }
 
     // Method to add an order
-    public void addOrder(Customer customer) {
-        Order newOrder = new Order(customer);
-        orders.add(newOrder);
+    public void saveOrder(Order order) {
+        orders.add(order);
     }
 
     // Method to find an order by staff ID
     public Order findOrder(int staffID) {
-        for (Order order : orders) {
-            if (order.getStaffID() == staffID) {
-                return order;
+        Order order = null;
+        boolean found = false;
+        int i = 0;
+        while(!found && i < orders.size()){
+            Order c = orders.get(i);
+            if(c.getStaffID()==staffID){
+                order = c;
+                found = true;
             }
+            else {
+                i++;
+            }
+            
         }
-        return null;
+        return order;
     }
 
     // Method to check delivered status
-    public void checkDelivered(boolean delivered) {
+    public boolean checkDelivered(boolean delivered) {
         for (Order order : orders) {
             if (order.isDelivered() == delivered) {
-                System.out.println("Order found with delivery status: " + delivered);
+                return delivered;
                 // Add more logic here if needed
             }
-        }
+        } 
+        return delivered;
     }
+    
 }

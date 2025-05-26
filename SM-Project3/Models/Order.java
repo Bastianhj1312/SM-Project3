@@ -6,19 +6,23 @@ public class Order {
     private int staffID;
     private List<orderLine> orderLine;
     private Customer customer;
+    private boolean delivered;
 
     // Constructor
     public Order(Customer customer, int staffID) {
         this.customer = customer;
         this.staffID = staffID;
         this.orderLine = new ArrayList<>();
+        this.delivered = delivered;
     }
 
     // Getter for staffID
     public int getStaffID() {
         return staffID;
     }
-
+    public boolean isDelivered(){
+        return delivered;
+    }
     // Setter for staffID
     public void setStaffID(int staffID) {
         this.staffID = staffID;
