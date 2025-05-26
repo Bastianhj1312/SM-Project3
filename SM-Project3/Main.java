@@ -7,4 +7,9 @@
  */
 public class Main{
     private String name;
+    private int alder;
+    
+    public Main() {
+    	
+    }
 }
