@@ -44,4 +44,12 @@ public class ProductContainer
         }
         return product;
     }
+     public void printAllProducts() {
+        for (Product p : products) {
+            System.out.println("Product No: " + p.getProductNo());
+            System.out.println("Quantity: " + p.getQuantity());
+            System.out.println("Price: " + p.getPrice());
+            System.out.println("-----");
+        }
+    }
 }
