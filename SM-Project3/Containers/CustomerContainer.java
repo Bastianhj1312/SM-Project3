@@ -1,5 +1,6 @@
 package Containers;
-package Containers;
+import Models.*;
+import java.util.ArrayList;
 
 /**
  * Write a description of class CustomerContainer here.
@@ -9,6 +10,6 @@ package Containers;
  */
 public class CustomerContainer
 {
-   private Order order;
-   
+   private ArrayList<Customer> customer;
+   private Customer customer;
 }
