@@ -1,5 +1,6 @@
 package Controllers;
-
+import Models.*;
+import Containers.*;
 
 /**
  * Write a description of class CustomerController here.
@@ -9,27 +10,14 @@ package Controllers;
  */
 public class CustomerController
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    CustomerContainer customercontainer;
+    Customer customer;
 
-    /**
-     * Constructor for objects of class CustomerController
-     */
-    public CustomerController()
-    {
-        // initialise instance variables
-        x = 0;
+    public CustomerController(){
+        customercontainer = CustomerContainer.getInstance();
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public Customer findCustomer(int phone){
+        return customercontainer.findCustomer(phone); 
     }
 }
