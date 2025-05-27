@@ -15,7 +15,7 @@ public class OrderController {
 
     public Customer addCustomertoOrder(int phone) {
         Customer customer = customercontainer.findCustomer(phone);
-        order = new Order(customer); // create order with the customer
+        order = new Order(customer);
         return customer;
     }
 
