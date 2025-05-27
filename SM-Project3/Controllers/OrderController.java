@@ -1,6 +1,6 @@
 package Controllers;
-
-
+import Containers.*;
+import Models.*;
 /**
  * Write a description of class OrderController here.
  *
@@ -9,27 +9,17 @@ package Controllers;
  */
 public class OrderController
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class OrderController
-     */
-    public OrderController()
-    {
-        // initialise instance variables
-        x = 0;
+    CustomerContainer customercontainer;
+    ProductContainer productcontainer;
+    Order order;
+    public Customer addCustomertoOrder(int phone){
+        Customer customer = customercontainer.findCustomer(phone);
+        order.setCustomer(customer);
+        return customer;
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public Order addProductToOrder(int productNo){
+        Product product = productcontainer.findProduct(productNo);
+        order.setProduct(product);
+        return order;
     }
 }
