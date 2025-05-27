@@ -4,71 +4,114 @@ public abstract class Product {
     private int productNo;
     private int quantity;
     private String description;
-    private String category;
+    private String productName;
+    private String manufacturer;
+    private String model;
+    private double recommendedRetailPrice;
+    private String supplierId;
+    private String sku;
     private double sellingPrice;
     private double costPrice;
 
-    public Product(int productNo, int quantity){
+    public Product(int productNo, int quantity, String productName, String manufacturer, String model,
+                   double recommendedRetailPrice, String supplierId, String sku) {
         this.productNo = productNo;
         this.quantity = quantity;
+        this.productName = productName;
+        this.manufacturer = manufacturer;
+        this.model = model;
+        this.recommendedRetailPrice = recommendedRetailPrice;
+        this.supplierId = supplierId;
+        this.sku = sku;
     }
 
-    public int getProductNo(){
+    public abstract double getPrice();
+
+    public int getProductNo() {
         return productNo;
     }
 
-    public void setProductNo(int productNo){
+    public void setProductNo(int productNo) {
         this.productNo = productNo;
     }
 
-    public int getQuantity(){
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity){
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    // Getter for description
     public String getDescription() {
         return description;
     }
 
-    // Setter for description
     public void setDescription(String description) {
         this.description = description;
     }
 
-    // Getter for category
-    public String getCategory() {
-        return category;
+    public String getProductName() {
+        return productName;
     }
 
-    // Setter for category
-    public void setCategory(String category) {
-        this.category = category;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    // Getter for sellingPrice
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public double getRecommendedRetailPrice() {
+        return recommendedRetailPrice;
+    }
+
+    public void setRecommendedRetailPrice(double recommendedRetailPrice) {
+        this.recommendedRetailPrice = recommendedRetailPrice;
+    }
+
+    public String getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(String supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
     public double getSellingPrice() {
         return sellingPrice;
     }
 
-    // Setter for sellingPrice
     public void setSellingPrice(double sellingPrice) {
         this.sellingPrice = sellingPrice;
     }
 
-    // Getter for costPrice
     public double getCostPrice() {
         return costPrice;
     }
 
-    // Setter for costPrice
     public void setCostPrice(double costPrice) {
         this.costPrice = costPrice;
     }
-
-    // You can force subclasses to define this
-    public abstract double getPrice();
 }
