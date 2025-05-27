@@ -34,7 +34,7 @@ public class ProductContainer
         int i = 0;
         while(!found && i < products.size()){
             Product p = products.get(i);
-            if(product.getProductNo()==productNo){
+            if(p.getProductNo()==productNo){
                 product = p;
                 found = true;
             }

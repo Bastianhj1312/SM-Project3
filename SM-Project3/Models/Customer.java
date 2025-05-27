@@ -20,4 +20,8 @@ public int getPhone(){
 public void setPhone(int phone){
     this.phone = phone;
 }
+@Override
+public String toString() {
+    return getName();
+}
 }

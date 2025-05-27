@@ -1,27 +1,54 @@
 package UI;
 
-import Containers.ProductContainer;
+import Containers.*;
+import Controllers.*;
 import Models.*;
 
 public class Main {
     public static void main(String[] args) {
-        ProductContainer container = ProductContainer.getInstance();
+        // Initialize containers
+        CustomerContainer customerContainer = CustomerContainer.getInstance();
+        ProductContainer productContainer = ProductContainer.getInstance();
 
-        // Create a simple product
-        SimpleProduct p1 = new SimpleProduct(
-            101, 5, "USB Cable", "Logitech", "X200", 20.0, "SUP001", "SKU101"
-        );
+        // Create and add a customer
+        Customer customer = new Customer("John Doe", 1234567890);
+        customerContainer.saveCustomer(customer);
 
-        // Create a unique product
-        UniqueProduct p2 = new UniqueProduct(
-            202, "SN-0001", 499.0
-        );
+        // Create and add some products
+        SimpleProduct product1 = new SimpleProduct(101, 50, "USB Cable", "Logitech", "X200", 20.0, "Supplier1", "SKU101");
+        SimpleProduct product2 = new SimpleProduct(102, 30, "Wireless Mouse", "Logitech", "M330", 25.0, "Supplier1", "SKU102");
 
-        // Save products in container
-        container.saveProduct(p1);
-        container.saveProduct(p2);
+        productContainer.saveProduct(product1);
+        productContainer.saveProduct(product2);
 
-        // Print all products
-        container.printAllProducts();
+        // Create controller
+        OrderController orderController = new OrderController();
+
+        // Add customer to order (creates order)
+        orderController.addCustomertoOrder(1234567890);
+
+        // Add products to the order with quantities
+        orderController.addProductToOrder(101, 2);
+        orderController.addProductToOrder(102, 1);
+
+        // Get the order
+        Order order = orderController.getOrder();
+
+        // Print order details
+        System.out.println("Order created:");
+        System.out.println("Customer: " + order.getCustomer().getName());
+        System.out.println("Order lines:");
+
+        for (orderLine ol : order.getOrderLines()) {
+            Product p = ol.getProduct();
+            int quantityOrdered = ol.getQuantity();
+
+            System.out.println("Product No: " + p.getProductNo());
+            System.out.println("Product Name: " + ((SimpleProduct) p).getProductName());
+            System.out.println("Quantity ordered: " + quantityOrdered);
+            System.out.println("Price per unit: " + ((SimpleProduct) p).getRecommendedRetailPrice());
+            System.out.println("Line total: " + quantityOrdered * ((SimpleProduct) p).getRecommendedRetailPrice());
+            System.out.println("-----");
+        }
     }
 }

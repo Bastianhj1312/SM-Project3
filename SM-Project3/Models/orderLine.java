@@ -1,12 +1,23 @@
 package Models;
 
-
 public class orderLine {
-private int quantity;
-private Product p;
+    private Product product;
+    private int quantity;
 
-public orderLine(Product p, int quantity) {
-    this.p = p;
-    this.quantity = quantity;
-}
+    public orderLine(Product product, int quantity){
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    public Product getProduct(){
+        return product;
+    }
+
+    public int getQuantity(){
+        return quantity;
+    }
+
+    public double getLineTotal(){
+        return product.getPrice() * quantity;  // or product.getSellingPrice() * quantity;
+    }
 }
