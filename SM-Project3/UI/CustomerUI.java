@@ -17,7 +17,7 @@ public class CustomerUI
     private CustomerContainer customercontainer;
     
     public CustomerUI(){
-        customercontainer = CustomerContainer.getInstance();
+        customercontroller = new CustomerController();
     }
     
     public void start() {
@@ -56,8 +56,8 @@ public class CustomerUI
         String name = TextInput.inputString("Tilføj kundens navn: ");
         int phone = TextInput.inputNumber("Tilføj kundens telefon nummer: ");
         Customer customer = new Customer(name, phone);
-        customercontainer.saveCustomer(customer);
-        System.out.println("Kunde oprettet: " + name + " med telefonnummer: " + phone);
+        customercontroller.saveCustomer(customer);
+        System.out.println("Kunde oprettet med navn: " + name + " og telefonnummer: " + phone);
     }  
 
 }
