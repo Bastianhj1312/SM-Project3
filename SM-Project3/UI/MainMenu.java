@@ -9,13 +9,13 @@ public class MainMenu {
     private ProductContainer productcontainer;
 
     private OrderMenu orderMenu;
-    private ProductMenu productMenu;
-    private CustomerMenu customerMenu;
+    private ProductUI productMenu;
+    private CustomerUI customerMenu;
 
     public MainMenu() {
         orderMenu = new OrderMenu();
         productMenu = new ProductMenu();
-        customerMenu = new CustomerMenu();
+        customerMenu = new CustomerUI();
     }
 
     public void start() {
