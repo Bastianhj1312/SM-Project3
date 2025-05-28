@@ -19,8 +19,6 @@ public class OrderMenu {
             int choice = writeOrderMenu();
             if (choice == 1) {
                 createOrder();
-            } else if (choice == 2) {
-                orderController.printCurrentOrders(); 
             } else {
                 running = false;
             }
@@ -35,28 +33,12 @@ public class OrderMenu {
         int productNumber = TextInput.inputNumber("tilføj produktnummer");
         int quantity = TextInput.inputNumber("indtast mængde");
         orderController.addProductToOrder(productNumber, quantity);
-        confirmOrder();
     }
     
-    private void confirmOrder() {
-        boolean running = true;
-        while (running) {
-            
-            int choice = writeConfirm();
-            if (choice == 1) {
-                orderController.orderConfirmed();
-                running = false;
-                start();
-            } else {
-                running = false;
-            }
-        }
-    }
     
     private int writeConfirm() {
         TextOptions confirm = new TextOptions("\n ***** Confirm *****", "Cancel");
         confirm.addOption("Confirm");
-        orderController.printOrderConfirmation();
         int choice = confirm.prompt();
         
         return choice;
