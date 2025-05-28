@@ -29,11 +29,12 @@ public class OrderMenu {
     
     //adds a search field to find a specific person from the data that has been given.
     private void createOrder() {
-        int number = TextInput.inputNumber("Add Customer number");
+        int number = TextInput.inputNumber("Add Customer number to ordre");
         orderController.addCustomertoOrder(number);
         String product = TextInput.inputString("Add product to order");
-        int productNumber = TextInput.inputNumber("");
-        orderController.addProductToOrder(name, product);
+        int productNumber = TextInput.inputNumber("tilføj produktnummer");
+        int quantity = TextInput.inputNumber("indtast mængde");
+        orderController.addProductToOrder(productNumber, quantity);
         confirmOrder();
     }
     
