@@ -25,8 +25,6 @@ public abstract class Product {
         this.sku = sku;
     }
 
-    public abstract double getPrice();
-
     public int getProductNo() {
         return productNo;
     }

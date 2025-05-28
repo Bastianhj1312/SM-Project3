@@ -1,27 +1,31 @@
 package Controllers;
-
 import Containers.*;
 import Models.*;
 
 public class OrderController {
-    CustomerContainer customercontainer;
-    ProductContainer productcontainer;
+    CustomerController customercontroller;
+    ProductController productcontroller;
     Order order;
 
     public OrderController() {
-        customercontainer = CustomerContainer.getInstance();
-        productcontainer = ProductContainer.getInstance();
+        customercontroller = new CustomerController();
+        productcontroller = new ProductController();
     }
 
     public Customer addCustomertoOrder(int phone) {
-        Customer customer = customercontainer.findCustomer(phone);
+        Customer customer = customercontroller.findCustomer(phone);
         order = new Order(customer);
         return customer;
     }
 
     public Order addProductToOrder(int productNo, int quantity) {
-        Product product = productcontainer.findProduct(productNo);
-        order.addOrderLine(product, quantity);
+        Product product = productcontroller.findProduct(productNo); 
+        
+        if(product == null){
+            System.out.println("Product is null");
+        }else{
+            order.addOrderLine(product, quantity);
+        }  
         return order;
     }
 

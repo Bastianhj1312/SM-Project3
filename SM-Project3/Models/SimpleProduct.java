@@ -9,11 +9,6 @@ public class SimpleProduct extends Product {
         this.category = category;
     }
 
-    @Override
-    public double getPrice() {
-        return getQuantity() * getRecommendedRetailPrice();
-    }
-
     public String getCategory() {
         return category;
     }

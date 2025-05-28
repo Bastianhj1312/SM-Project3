@@ -11,11 +11,6 @@ public class UniqueProduct extends Product {
         setSellingPrice(fixedPrice);
     }
 
-    @Override
-    public double getPrice() {
-        return getSellingPrice();
-    }
-
     public String getSerialNumber() {
         return serialNumber;
     }

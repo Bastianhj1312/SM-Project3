@@ -52,7 +52,7 @@ public class ProductContainer
             System.out.println("Description: " + p.getDescription());
             System.out.println("Selling Price: " + p.getSellingPrice());
             System.out.println("Cost Price: " + p.getCostPrice());
-            System.out.println("Total Price: " + p.getPrice());
+            System.out.println("Total Price: " + p.getSellingPrice());
 
             if (p instanceof SimpleProduct) {
                 SimpleProduct sp = (SimpleProduct) p;

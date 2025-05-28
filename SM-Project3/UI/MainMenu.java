@@ -8,12 +8,14 @@ public class MainMenu {
     private CustomerContainer customercontainer;
     private ProductContainer productcontainer;
 
-    private OrderMenu orderMenu;;
+    private OrderMenu orderMenu;
     private CustomerUI customerMenu;
+    private TryMe tryMe;
 
     public MainMenu() {
-        orderMenu = new OrderMenu();;
+        orderMenu = new OrderMenu();
         customerMenu = new CustomerUI();
+        tryMe = new TryMe();
     }
 
     public void start() {
@@ -21,11 +23,11 @@ public class MainMenu {
         while (!exit) {
             int choice = writeMainMenu();
             if (choice == 1) {
-                orderMenu.start();
+                customerMenu.start();
             } else if (choice == 2) {
                 orderMenu.start();
             } else if (choice == 3) {
-                new TryMe().start();
+                tryMe.start();
               } else {
                 writeEnd();
                 exit = true;

@@ -18,6 +18,6 @@ public class orderLine {
     }
 
     public double getLineTotal(){
-        return product.getPrice() * quantity;  // or product.getSellingPrice() * quantity;
+        return product.getSellingPrice() * quantity;  // or product.getSellingPrice() * quantity;
     }
 }
