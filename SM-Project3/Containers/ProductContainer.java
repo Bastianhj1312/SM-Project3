@@ -50,7 +50,6 @@ public class ProductContainer
             System.out.println("Product No: " + p.getProductNo());
             System.out.println("Quantity: " + p.getQuantity());
             System.out.println("Description: " + p.getDescription());
-            System.out.println("Category: " + p.getCategory());
             System.out.println("Selling Price: " + p.getSellingPrice());
             System.out.println("Cost Price: " + p.getCostPrice());
             System.out.println("Total Price: " + p.getPrice());
