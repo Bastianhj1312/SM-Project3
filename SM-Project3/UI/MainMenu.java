@@ -8,13 +8,11 @@ public class MainMenu {
     private CustomerContainer customercontainer;
     private ProductContainer productcontainer;
 
-    private OrderMenu orderMenu;
-    private ProductUI productMenu;
+    private OrderMenu orderMenu;;
     private CustomerUI customerMenu;
 
     public MainMenu() {
-        orderMenu = new OrderMenu();
-        productMenu = new ProductMenu();
+        orderMenu = new OrderMenu();;
         customerMenu = new CustomerUI();
     }
 
@@ -25,12 +23,10 @@ public class MainMenu {
             if (choice == 1) {
                 orderMenu.start();
             } else if (choice == 2) {
-                productMenu.start();
-            } else if (choice == 3) {
                 orderMenu.start();
-            } else if (choice == 4) {
-                TryMe.generateTestData();
-            } else {
+            } else if (choice == 3) {
+                new TryMe().start();
+              } else {
                 writeEnd();
                 exit = true;
             }
@@ -39,9 +35,8 @@ public class MainMenu {
 
     private int writeMainMenu() {
         TextOptions menu = new TextOptions("\n *** Head menu ***", "Shutdown the program");
+        menu.addOption("Customer menu");
         menu.addOption("Order menu");
-        menu.addOption("Product menu");
-        menu.addOption("Ordering menu");
         menu.addOption("Generating test data");
         return menu.prompt();
     }
