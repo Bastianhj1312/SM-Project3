@@ -16,10 +16,16 @@ public class CustomerController
     public CustomerController(){
         customercontainer = CustomerContainer.getInstance();
     }
-    public void saveCustomer(Customer customer) {
-        customercontainer.saveCustomer(customer);
+    public void saveCustomer(PrivateCustomer customer) {
+        customercontainer.savePrivateCustomer(customer);
     }
-    public Customer findCustomer(int phone){
-        return customercontainer.findCustomer(phone); 
+    public void saveBusinessCustomer(BusinessCustomer customer) {
+        customercontainer.saveBusinessCustomer(customer);
+    }
+    public PrivateCustomer findCustomer(int phone){
+        return customercontainer.findPrivateCustomer(phone); 
+    }
+    public BusinessCustomer findBusinessCustomer(int cvr){
+        return customercontainer.findBusinessCustomer(cvr); 
     }
 }
