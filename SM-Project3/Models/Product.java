@@ -14,7 +14,7 @@ public abstract class Product {
     private double costPrice;
 
     public Product(int productNo, int quantity, String productName, String manufacturer, String model,
-                   double recommendedRetailPrice, String supplierId, String sku) {
+    double recommendedRetailPrice, String supplierId, String sku) {
         this.productNo = productNo;
         this.quantity = quantity;
         this.productName = productName;
@@ -24,7 +24,6 @@ public abstract class Product {
         this.supplierId = supplierId;
         this.sku = sku;
     }
-
     public int getProductNo() {
         return productNo;
     }
@@ -111,5 +110,9 @@ public abstract class Product {
 
     public void setCostPrice(double costPrice) {
         this.costPrice = costPrice;
+    }
+
+    public boolean isUniqueProduct() {
+        return false;
     }
 }
