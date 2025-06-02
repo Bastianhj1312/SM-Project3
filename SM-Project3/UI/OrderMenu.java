@@ -70,11 +70,11 @@ public class OrderMenu {
 
                     while (!validSerial) {
                         int serialNumber = TextInput.inputNumber("Indtast serienummer på det unikke produkt");
-                        ArrayList<UniqueProductCopy> copies = productcontroller.getAllUniqueProductCopies();
-                        int i = 0;
                         UniqueProductCopy match = null;
-                        while (i < copies.size() && match == null) {
-                            UniqueProductCopy copy = copies.get(i);
+                        int i = 0;
+
+                        while (i < productcontroller.getAllUniqueProductCopies().size() && match == null) {
+                            UniqueProductCopy copy = productcontroller.getAllUniqueProductCopies().get(i);
                             if (copy.getProduct().equals(product) && copy.getSerialNumber() == serialNumber) {
                                 match = copy;
                             }
