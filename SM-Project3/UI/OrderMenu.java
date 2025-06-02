@@ -1,6 +1,7 @@
 package UI;
 import Controllers.*;
 import Models.*;
+import java.util.ArrayList;
 
 public class OrderMenu {
     private OrderController orderController;
@@ -38,7 +39,6 @@ public class OrderMenu {
 
             if (kunder.equalsIgnoreCase("privatkunde")) {
                 int phoneNumber = TextInput.inputNumber("Tilføj kundens telefonnummer til ordren:");
-                // Find kunden i databasen eller kundelisten
                 PrivateCustomer privatecustomer = customercontroller.findCustomer(phoneNumber);
 
                 if (privatecustomer != null) {
@@ -62,25 +62,54 @@ public class OrderMenu {
 
         while (FlereProdukter) {
             int productNumber = TextInput.inputNumber("Indtast produktnummer");
-
             Product product = productcontroller.findProduct(productNumber);
 
-            if (product.isUniqueProduct()) {
-                int serialNumber = TextInput.inputNumber("Indtast serienummer på det unikke produkt");
-                orderController.addUniqueProductToOrder((UniqueProduct) product, serialNumber);
-            } else {
-                int quantity = TextInput.inputNumber("Indtast mængde");
-                orderController.addProductToOrder(productNumber, quantity);
-            }
+            if (product != null) {
+                if (product.isUniqueProduct()) {
+                    boolean validSerial = false;
 
-            String answer = TextInput.inputString("Vil du tilføje et produkt mere? (ja/nej)");
+                    while (!validSerial) {
+                        int serialNumber = TextInput.inputNumber("Indtast serienummer på det unikke produkt");
+                        ArrayList<UniqueProductCopy> copies = productcontroller.getAllUniqueProductCopies();
+                        int i = 0;
+                        UniqueProductCopy match = null;
+                        while (i < copies.size() && match == null) {
+                            UniqueProductCopy copy = copies.get(i);
+                            if (copy.getProduct().equals(product) && copy.getSerialNumber() == serialNumber) {
+                                match = copy;
+                            }
+                            i++;
+                        }
 
-            if (answer.equals("ja")) {
-                FlereProdukter = true;
-            } else if (answer.equals("nej")) {
-                FlereProdukter = false;
+                        if (match != null) {
+                            orderController.addUniqueProductToOrder(match.getProduct(), match.getSerialNumber());
+                            validSerial = true;
+                        } else {
+                            System.out.println("Serienummeret passer ikke til produktet. Prøv igen.");
+                        }
+                    }
+                } else {
+                    int quantity = TextInput.inputNumber("Indtast mængde");
+                    orderController.addProductToOrder(productNumber, quantity);
+                }
+
+                // Spørg om flere produkter
+                boolean validAnswer = false;
+                while (!validAnswer) {
+                    String answer = TextInput.inputString("Vil du tilføje et produkt mere? (ja/nej)");
+
+                    if (answer.equalsIgnoreCase("ja")) {
+                        FlereProdukter = true;
+                        validAnswer = true;
+                    } else if (answer.equalsIgnoreCase("nej")) {
+                        FlereProdukter = false;
+                        validAnswer = true;
+                    } else {
+                        System.out.println("Ugyldigt svar. Skriv 'ja' eller 'nej'.");
+                    }
+                }
             } else {
-                System.out.println("Du skrev forkert, prøv igen.");
+                System.out.println("Produktet blev ikke fundet. Prøv igen.");
             }
         }
     }

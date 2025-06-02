@@ -12,9 +12,11 @@ public class ProductContainer
 {
     private ArrayList<Product> products;
     private static ProductContainer instance;
+    private ArrayList<UniqueProductCopy> uniqueProductCopies;
 
     private ProductContainer(){
         products = new ArrayList<>();
+        uniqueProductCopies = new ArrayList<>();
     }
 
     public static ProductContainer getInstance(){
@@ -43,5 +45,23 @@ public class ProductContainer
             }
         }
         return product;
+    }
+    // Nye metoder til UniqueProductCopy:
+    public void saveUniqueProductCopy(UniqueProductCopy copy) {
+        uniqueProductCopies.add(copy);
+    }
+
+    public ArrayList<UniqueProductCopy> getAllUniqueProductCopies() {
+        return uniqueProductCopies;
+    }
+
+    // Eller en metode til at finde én unik kopi ud fra produkt og serienummer:
+    public UniqueProductCopy findUniqueProductCopy(UniqueProduct product, int serialNumber) {
+        for (UniqueProductCopy copy : uniqueProductCopies) {
+            if (copy.getProduct().equals(product) && copy.getSerialNumber() == serialNumber) {
+                return copy;
+            }
+        }
+        return null;
     }
 }
