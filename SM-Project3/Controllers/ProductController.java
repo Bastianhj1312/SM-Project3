@@ -21,16 +21,7 @@ public class ProductController {
         return productcontainer.findProduct(productNo);
     }
 
-    public UniqueProductCopy findUniqueProductCopy(UniqueProduct product, int serialNumber) {
-        for (UniqueProductCopy copy : productcontainer.getAllUniqueProductCopies()) {
-            if (copy.getProduct().equals(product) && copy.getSerialNumber() == serialNumber) {
-                return copy;
-            }
-        }
-        return null; // Ikke fundet
-    }
-
-    public ArrayList<UniqueProductCopy> getAllUniqueProductCopies() {
-        return productcontainer.getAllUniqueProductCopies();
+    public UniqueProductCopy findUniqueProductCopy(int productNo, int serialNumber) {
+        return productcontainer.findUniqueProductCopy(productNo, serialNumber);
     }
 }

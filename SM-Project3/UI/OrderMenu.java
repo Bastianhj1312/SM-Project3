@@ -63,24 +63,13 @@ public class OrderMenu {
         while (FlereProdukter) {
             int productNumber = TextInput.inputNumber("Indtast produktnummer");
             Product product = productcontroller.findProduct(productNumber);
-
             if (product != null) {
                 if (product.isUniqueProduct()) {
                     boolean validSerial = false;
-
+                    // finder unikt produkt
                     while (!validSerial) {
                         int serialNumber = TextInput.inputNumber("Indtast serienummer på det unikke produkt");
-                        UniqueProductCopy match = null;
-                        int i = 0;
-
-                        while (i < productcontroller.getAllUniqueProductCopies().size() && match == null) {
-                            UniqueProductCopy copy = productcontroller.getAllUniqueProductCopies().get(i);
-                            if (copy.getProduct().equals(product) && copy.getSerialNumber() == serialNumber) {
-                                match = copy;
-                            }
-                            i++;
-                        }
-
+                        UniqueProductCopy match = productcontroller.findUniqueProductCopy(product.getProductNo(), serialNumber);
                         if (match != null) {
                             orderController.addUniqueProductToOrder(match);
                             validSerial = true;

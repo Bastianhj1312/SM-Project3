@@ -51,17 +51,19 @@ public class ProductContainer
         uniqueProductCopies.add(copy);
     }
 
-    public ArrayList<UniqueProductCopy> getAllUniqueProductCopies() {
-        return uniqueProductCopies;
-    }
-
     // Eller en metode til at finde én unik kopi ud fra produkt og serienummer:
-    public UniqueProductCopy findUniqueProductCopy(UniqueProduct product, int serialNumber) {
-        for (UniqueProductCopy copy : uniqueProductCopies) {
-            if (copy.getProduct().equals(product) && copy.getSerialNumber() == serialNumber) {
-                return copy;
+    public UniqueProductCopy findUniqueProductCopy(int productNo, int serialNumber) {
+        int i = 0;
+        UniqueProductCopy copyFound = null;
+
+        while (i < uniqueProductCopies.size() && copyFound == null) {
+            UniqueProductCopy copy = uniqueProductCopies.get(i);
+            if (copy.getProduct().getProductNo() == productNo && copy.getSerialNumber() == serialNumber) {
+                copyFound = copy;
+            } else {
+                i++;
             }
         }
-        return null;
+        return copyFound;
     }
 }
