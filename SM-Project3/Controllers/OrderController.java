@@ -20,10 +20,11 @@ public class OrderController {
 
     public Customer addCustomertoOrder(int phone) {
         PrivateCustomer customer = customercontroller.findCustomer(phone);  // findPrivateCustomer, som returnerer PrivateCustomer
+        boolean checker = true;
         if (customer != null) {
             order = new Order(customer);  // order skal kunne tage Customer (eller PrivateCustomer)
         } else {
-            System.out.println("Privatkunde ikke fundet.");
+            checker = false;
         }
         return customer;
     }
@@ -32,9 +33,7 @@ public class OrderController {
         BusinessCustomer customer = customercontroller.findBusinessCustomer(cvr);
         if (customer != null) {
             order = new Order(customer);
-        } else {
-            System.out.println("Forretning ikke fundet.");
-        }
+        } 
         return customer;
     }
 
@@ -42,7 +41,7 @@ public class OrderController {
         Product product = productcontroller.findProduct(productNo); 
 
         if(product == null){
-            System.out.println("Product is null");
+            
         }else{
             order.addOrderLine(product, quantity);
         }  

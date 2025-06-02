@@ -5,12 +5,14 @@ import Models.*;
 public class OrderMenu {
     private OrderController orderController;
     private ProductController productcontroller;
+    private CustomerController customercontroller;
     /**
      * Constructor for objects of class LoanMenu
      */
     public OrderMenu() {
         orderController = new OrderController();
         productcontroller = new ProductController();
+        customercontroller = new CustomerController();
     }
 
     public void start() {
@@ -30,18 +32,29 @@ public class OrderMenu {
     //adds a search field to find a specific person from the data that has been given.
     private void createOrder() {
         boolean FlereKunder = true;
-        while(FlereKunder){
+
+        while (FlereKunder) {
             String kunder = TextInput.inputString("Vil du tilføje en privatkunde eller forretning til ordren?");
-            if(kunder.equals("privatkunde")){
+
+            if (kunder.equalsIgnoreCase("privatkunde")) {
                 int phoneNumber = TextInput.inputNumber("Tilføj kundens telefonnummer til ordren:");
-                orderController.addCustomertoOrder(phoneNumber);
-                FlereKunder = false;
-            } else if  (kunder.equals("forretning")) {
-                int cvr = TextInput.inputNumber("Tilføj kundens cvrnummer til ordren:");
+                // Find kunden i databasen eller kundelisten
+                PrivateCustomer privatecustomer = customercontroller.findCustomer(phoneNumber);
+
+                if (privatecustomer != null) {
+                    orderController.addCustomertoOrder(phoneNumber);
+                    FlereKunder = false;
+                } else {
+                    System.out.println("Ingen privatkunde fundet med dette telefonnummer. Prøv igen.");
+                }
+
+            } else if (kunder.equalsIgnoreCase("forretning")) {
+                int cvr = TextInput.inputNumber("Tilføj kundens CVR-nummer til ordren:");
                 orderController.addBusinessCustomerToOrder(cvr);
                 FlereKunder = false;
+
             } else {
-                System.out.println("Prøv igen");
+                System.out.println("Ukendt kundetype. Prøv igen.");
             }
         }
 
@@ -50,7 +63,7 @@ public class OrderMenu {
         while (FlereProdukter) {
             int productNumber = TextInput.inputNumber("Indtast produktnummer");
 
-            Product product = productcontroller.findProduct(productNumber); // You'll need this method
+            Product product = productcontroller.findProduct(productNumber);
 
             if (product.isUniqueProduct()) {
                 int serialNumber = TextInput.inputNumber("Indtast serienummer på det unikke produkt");
