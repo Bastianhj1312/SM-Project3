@@ -6,16 +6,14 @@ public class OrderController {
     CustomerController customercontroller;
     ProductController productcontroller;
     Order order;
-    
 
     public OrderController() {
         customercontroller = new CustomerController();
         productcontroller = new ProductController();
     }
 
-    public void addUniqueProductToOrder(UniqueProduct product, int serialNumber) {
-        UniqueProductCopy copy = new UniqueProductCopy(product, serialNumber);
-        order.getOrderLines().add(new orderLine(copy));  // Only 1 quantity
+    public void addUniqueProductToOrder(UniqueProductCopy copy) {
+        order.getOrderLines().add(new orderLine(copy));
     }
 
     public Customer addCustomertoOrder(int phone) {
@@ -41,7 +39,7 @@ public class OrderController {
         Product product = productcontroller.findProduct(productNo); 
 
         if(product == null){
-            
+
         }else{
             order.addOrderLine(product, quantity);
         }  

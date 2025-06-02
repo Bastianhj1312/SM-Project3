@@ -82,7 +82,7 @@ public class OrderMenu {
                         }
 
                         if (match != null) {
-                            orderController.addUniqueProductToOrder(match.getProduct(), match.getSerialNumber());
+                            orderController.addUniqueProductToOrder(match);
                             validSerial = true;
                         } else {
                             System.out.println("Serienummeret passer ikke til produktet. Prøv igen.");
