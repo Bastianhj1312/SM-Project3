@@ -21,25 +21,25 @@ public class CustomerUI
     }
     
     public void start() {
-        customerMenu();
+        
     }
     
-    private void customerMenu() {
-       boolean exit = false;
-       while(!exit) {
-           int choice = writeOrderMenu();
-          if(choice == 1) { //create the customer
-            createCustomer();
-          }
-          else if (choice == 2) { //find the customer
-            System.out.println("Denne skal implementeres når du når til den øvelse!");
-          } 
-          else {
-            exit = true;
-            System.out.println("Fortsat god dag.");
-          }//end else  
-       }//end while
-    }
+    //private void customerMenu() {
+      // boolean exit = false;
+       //while(!exit) {
+         //  int choice = writeOrderMenu();
+          //if(choice == 1) { //create the customer
+            //createCustomer();
+          //}
+          //else if (choice == 2) { //find the customer
+            //System.out.println("Denne skal implementeres når du når til den øvelse!");
+          //} 
+          //else {
+            //exit = true;
+            //System.out.println("Fortsat god dag.");
+          //}//end else  
+       //}//end while
+    //}
     
      private int writeOrderMenu() {
         // creates a keyboard object to read input
@@ -52,12 +52,12 @@ public class CustomerUI
         return choice;
     }
     
-    private void createCustomer() {
-        String name = TextInput.inputString("Tilføj kundens navn: ");
-        int phone = TextInput.inputNumber("Tilføj kundens telefon nummer: ");
-        Customer customer = new Customer(name, phone);
-        customercontroller.saveCustomer(customer);
-        System.out.println("Kunde oprettet med navn: " + name + " og telefonnummer: " + phone);
-    }  
+    //private void createCustomer() {
+      //  String name = TextInput.inputString("Tilføj kundens navn: ");
+        //int phone = TextInput.inputNumber("Tilføj kundens telefon nummer: ");
+        //Customer customer = new Customer(name, phone);
+        //customercontroller.saveCustomer(customer);
+        //System.out.println("Kunde oprettet med navn: " + name + " og telefonnummer: " + phone);
+    //}  
 
 }

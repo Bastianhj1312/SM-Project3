@@ -8,7 +8,6 @@ public class Order {
     private List<orderLine> orderLine;
     private Customer customer;
     private Product product; // optional single product
-    private boolean delivered;
 
     // Constructor
     public Order(Customer customer) {
@@ -16,20 +15,11 @@ public class Order {
         this.product = product;
         this.staffID = staffID;
         this.orderLine = new ArrayList<>();
-        this.delivered = false; // Fix: set to false by default
     }
 
     // Getter and setter
     public int getStaffID() {
         return staffID;
-    }
-
-    public boolean isDelivered() {
-        return delivered;
-    }
-
-    public void setDelivered(boolean delivered) {
-        this.delivered = delivered;
     }
 
     public void setStaffID(int staffID) {
