@@ -47,14 +47,14 @@ public class OrderContainer {
     }
 
     // Method to check delivered status
-    public boolean checkDelivered(boolean delivered) {
-        for (Order order : orders) {
-            if (order.isDelivered() == delivered) {
-                return delivered;
-                // Add more logic here if needed
-            }
-        } 
-        return delivered;
-    }
+    //public boolean checkDelivered(boolean delivered) {
+      //  for (Order order : orders) {
+        //    if (order.isDelivered() == delivered) {
+          //      return delivered;
+            //    // Add more logic here if needed
+            //}
+        //} 
+        //return delivered;
+    //}
     
 }
