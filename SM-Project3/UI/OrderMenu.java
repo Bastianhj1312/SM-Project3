@@ -38,28 +38,45 @@ public class OrderMenu {
             String kunder = TextInput.inputString("Vil du tilføje en privatkunde eller forretning til ordren?");
 
             if (kunder.equalsIgnoreCase("privatkunde")) {
-                int phoneNumber = TextInput.inputNumber("Tilføj kundens telefonnummer til ordren:");
-                PrivateCustomer privatecustomer = customercontroller.findCustomer(phoneNumber);
+                boolean validPrivateCustomer = false;
 
-                if (privatecustomer != null) {
-                    orderController.addCustomertoOrder(phoneNumber);
-                    FlereKunder = false;
-                } else {
-                    System.out.println("Ingen privatkunde fundet med dette telefonnummer. Prøv igen.");
+                while (!validPrivateCustomer) {
+                    int phoneNumber = TextInput.inputNumber("Tilføj kundens telefonnummer til ordren:");
+                    PrivateCustomer privatecustomer = customercontroller.findCustomer(phoneNumber);
+
+                    if (privatecustomer != null) {
+                        orderController.addCustomertoOrder(phoneNumber);
+                        validPrivateCustomer = true;
+                        FlereKunder = false;
+                    } else {
+                        System.out.println("Ingen privatkunde fundet med dette telefonnummer. Prøv igen.");
+                    }
                 }
 
             } else if (kunder.equalsIgnoreCase("forretning")) {
-                int cvr = TextInput.inputNumber("Tilføj kundens CVR-nummer til ordren:");
-                orderController.addBusinessCustomerToOrder(cvr);
-                FlereKunder = false;
+                boolean validBusinessCustomer = false;
 
+                while (!validBusinessCustomer) {
+                    int cvr = TextInput.inputNumber("Tilføj kundens CVR-nummer til ordren:");
+                    BusinessCustomer businessCustomer = customercontroller.findBusinessCustomer(cvr);
+
+                    if (businessCustomer != null) {
+                        orderController.addBusinessCustomerToOrder(cvr);
+                        validBusinessCustomer = true;
+                        FlereKunder = false;
+                    } else {
+                        System.out.println("Ingen forretning fundet med dette CVR-nummer. Prøv igen.");
+                    }
+                }
+            } else if (kunder.equalsIgnoreCase("exit")) {
+                System.out.println("Går tilbage til hovedmenu");
+                start();
             } else {
-                System.out.println("Ukendt kundetype. Prøv igen.");
+                System.out.println("Ukendt kundetype. Prøv igen. Skriv enten 'privatkunde' eller 'forretning'.");
             }
         }
 
         boolean FlereProdukter = true;
-
         while (FlereProdukter) {
             int productNumber = TextInput.inputNumber("Indtast produktnummer");
             Product product = productcontroller.findProduct(productNumber);
@@ -73,7 +90,7 @@ public class OrderMenu {
                         if (match != null) {
                             orderController.addUniqueProductToOrder(match);
                             validSerial = true;
-                        } else {
+                        }else {
                             System.out.println("Serienummeret passer ikke til produktet. Prøv igen.");
                         }
                     }
