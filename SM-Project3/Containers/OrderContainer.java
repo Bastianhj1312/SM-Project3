@@ -28,13 +28,13 @@ public class OrderContainer {
     }
 
     // Method to find an order by staff ID
-    public Order findOrder(int staffID) {
+    public Order findOrder(Employee employee) {
         Order order = null;
         boolean found = false;
         int i = 0;
         while(!found && i < orders.size()){
             Order c = orders.get(i);
-            if(c.getStaffID()==staffID){
+            if(c.getEmployee()==employee){
                 order = c;
                 found = true;
             }
@@ -55,6 +55,4 @@ public class OrderContainer {
             //}
         //} 
         //return delivered;
-    //}
-    
-}
+    }
