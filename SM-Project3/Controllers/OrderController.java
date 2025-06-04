@@ -26,7 +26,16 @@ public class OrderController {
         }
         return customer;
     }
-
+    public Employee addEmployeetoOrder(int staffID) {
+        Employee employee = customercontroller.findEmployee(staffID);  // findPrivateCustomer, som returnerer PrivateCustomer
+        boolean checker = true;
+        if (employee != null) {
+            order = new Order(employee);  // order skal kunne tage Customer (eller PrivateCustomer)
+        } else {
+            checker = false;
+        }
+        return employee;
+    }
     public BusinessCustomer addBusinessCustomerToOrder(int cvr) {
         BusinessCustomer customer = customercontroller.findBusinessCustomer(cvr);
         if (customer != null) {

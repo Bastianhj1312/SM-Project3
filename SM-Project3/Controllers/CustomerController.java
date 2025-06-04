@@ -28,4 +28,7 @@ public class CustomerController
     public BusinessCustomer findBusinessCustomer(int cvr){
         return customercontainer.findBusinessCustomer(cvr); 
     }
+    public Employee findEmployee(int staffID){
+        return customercontainer.findEmployee(staffID);
+    }
 }

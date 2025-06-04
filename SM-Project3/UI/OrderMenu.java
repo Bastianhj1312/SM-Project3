@@ -43,7 +43,8 @@ public class OrderMenu {
                 while (!validPrivateCustomer) {
                     int phoneNumber = TextInput.inputNumber("Tilføj kundens telefonnummer til ordren:");
                     PrivateCustomer privatecustomer = customercontroller.findCustomer(phoneNumber);
-
+                    int staffID = TextInput.inputNumber("Tilføj staffid til ordren");
+                    Employee employee = customercontroller.findEmployee(staffID);
                     if (privatecustomer != null) {
                         orderController.addCustomertoOrder(phoneNumber);
                         validPrivateCustomer = true;
@@ -122,6 +123,8 @@ public class OrderMenu {
 
     private void printOrder() {
         Order order = orderController.getOrder();
+        Employee employee;
+        System.out.println("Employee: 1 Per");
         System.out.println("Customer: " + order.getCustomer().getName());
         System.out.println("Order lines:");
 

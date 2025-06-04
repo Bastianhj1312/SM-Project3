@@ -30,13 +30,14 @@ public class TryMe {
     productContainer.saveProduct(uniqueProduct1);
     productContainer.saveProduct(uniqueProduct2);
 
-    // ❗ gem unikke kopier
+    // gem unikke kopier
     productContainer.saveUniqueProductCopy(copy1);
     productContainer.saveUniqueProductCopy(copy2);
 
     // lav kunder
     PrivateCustomer customer = new PrivateCustomer("Peter", 1234);
     BusinessCustomer bcustomer = new BusinessCustomer("Søren", 12345678);
+    Employee employee = new Employee("Per", 1);
     customerContainer.savePrivateCustomer(customer);
     customerContainer.saveBusinessCustomer(bcustomer);
 }

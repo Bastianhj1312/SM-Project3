@@ -12,11 +12,13 @@ public class CustomerContainer
 {
     private ArrayList<PrivateCustomer> privatecustomers;
     private ArrayList<BusinessCustomer> businesscustomers;
+    private ArrayList<Employee> employee;
     private static CustomerContainer instance;
 
     private CustomerContainer(){
         privatecustomers = new ArrayList<>();
         businesscustomers = new ArrayList<>();
+        employee = new ArrayList<>();
     }
 
     public static CustomerContainer getInstance(){
@@ -32,6 +34,9 @@ public class CustomerContainer
 
     public void saveBusinessCustomer(BusinessCustomer businesscustomer){
         businesscustomers.add(businesscustomer);
+    }
+     public void saveEmployee(Employee employes){
+        employee.add(employes);
     }
 
     public PrivateCustomer findPrivateCustomer(int phone) {
@@ -51,7 +56,23 @@ public class CustomerContainer
 
         return customer;
     }
+    public Employee findEmployee(int staffID) {
+        Employee foundemployee = null;
+        boolean found = false;
+        int i = 0;
 
+        while (!found && i < employee.size()) {
+            Employee c = employee.get(i);
+            if (c.getStaffID() == staffID) {
+                foundemployee = c;
+                found = true;
+            } else {
+                i++;
+            }
+        }
+
+        return foundemployee;
+    }
     public BusinessCustomer findBusinessCustomer(int cvr) {
         BusinessCustomer customer = null;
         boolean found = false;
