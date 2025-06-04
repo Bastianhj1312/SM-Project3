@@ -40,6 +40,7 @@ public class TryMe {
     Employee employee = new Employee("Per", 1);
     customerContainer.savePrivateCustomer(customer);
     customerContainer.saveBusinessCustomer(bcustomer);
+    customerContainer.saveEmployee(employee);
 }
 
 }

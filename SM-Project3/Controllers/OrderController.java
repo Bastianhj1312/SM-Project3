@@ -17,30 +17,26 @@ public class OrderController {
     }
 
     public Customer addCustomertoOrder(int phone) {
-        PrivateCustomer customer = customercontroller.findCustomer(phone);  // findPrivateCustomer, som returnerer PrivateCustomer
-        boolean checker = true;
+        PrivateCustomer customer = customercontroller.findCustomer(phone);
         if (customer != null) {
-            order = new Order(customer);  // order skal kunne tage Customer (eller PrivateCustomer)
-        } else {
-            checker = false;
+            order = new Order(customer);
         }
         return customer;
     }
+
     public Employee addEmployeetoOrder(int staffID) {
-        Employee employee = customercontroller.findEmployee(staffID);  // findPrivateCustomer, som returnerer PrivateCustomer
-        boolean checker = true;
-        if (employee != null) {
-            order = new Order(employee);  // order skal kunne tage Customer (eller PrivateCustomer)
-        } else {
-            checker = false;
+        Employee employee = customercontroller.findEmployee(staffID);
+        if (employee != null && order != null) {
+            order.setEmployee(employee); 
         }
         return employee;
     }
+
     public BusinessCustomer addBusinessCustomerToOrder(int cvr) {
         BusinessCustomer customer = customercontroller.findBusinessCustomer(cvr);
         if (customer != null) {
             order = new Order(customer);
-        } 
+        }
         return customer;
     }
 

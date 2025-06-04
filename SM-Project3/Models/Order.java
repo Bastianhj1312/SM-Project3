@@ -4,50 +4,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    private int staffID;
-    private List<orderLine> orderLine;
     private Customer customer;
-    private Product product; // optional single product
+    private Employee employee;
+    private List<orderLine> orderLines;
 
     // Constructor
     public Order(Customer customer) {
         this.customer = customer;
-        this.product = product;
-        this.staffID = staffID;
-        this.orderLine = new ArrayList<>();
+        this.orderLines = new ArrayList<>();
     }
 
-    // Getter and setter
-    public int getStaffID() {
-        return staffID;
-    }
-
-    public void setStaffID(int staffID) {
-        this.staffID = staffID;
+    // Getter og setter for customer
+    public Customer getCustomer() {
+        return customer;
     }
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    // Getter og setter for employee
+    public Employee getEmployee() {
+        return employee;
     }
 
-    // Add a product to the list
-    public void addOrderLine(Product p, int quantity) {
-        orderLine newOrderLine = new orderLine(p, quantity);
-        orderLine.add(newOrderLine);
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-    public Product getProduct(){
-        return product;
-    }
-
+    // Orderlines
     public List<orderLine> getOrderLines() {
-        return orderLine;
+        return orderLines;
+    }
+
+    public void addOrderLine(Product product, int quantity) {
+        orderLine newLine = new orderLine(product, quantity);
+        orderLines.add(newLine);
+    }
+
+    public void addUniqueOrderLine(UniqueProductCopy copy) {
+        orderLine newLine = new orderLine(copy);
+        orderLines.add(newLine);
     }
 }

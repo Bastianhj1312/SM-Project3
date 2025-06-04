@@ -45,8 +45,9 @@ public class OrderMenu {
                     PrivateCustomer privatecustomer = customercontroller.findCustomer(phoneNumber);
                     int staffID = TextInput.inputNumber("Tilføj staffid til ordren");
                     Employee employee = customercontroller.findEmployee(staffID);
-                    if (privatecustomer != null) {
+                    if (privatecustomer != null && employee != null) {
                         orderController.addCustomertoOrder(phoneNumber);
+                        orderController.addEmployeetoOrder(staffID);
                         validPrivateCustomer = true;
                         FlereKunder = false;
                     } else {
@@ -123,8 +124,7 @@ public class OrderMenu {
 
     private void printOrder() {
         Order order = orderController.getOrder();
-        Employee employee;
-        System.out.println("Employee: 1 Per");
+        System.out.println("Employee: " + order.getEmployee().getName() + " (ID :" + order.getEmployee().getStaffID());
         System.out.println("Customer: " + order.getCustomer().getName());
         System.out.println("Order lines:");
 
