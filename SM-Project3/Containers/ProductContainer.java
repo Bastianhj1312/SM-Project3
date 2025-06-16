@@ -29,6 +29,9 @@ public class ProductContainer
     public void saveProduct(Product product){
         products.add(product);
     }
+    public ArrayList<Product> getAllProducts() {
+        return new ArrayList<>(products);
+    }
 
     public Product findProduct(int productNo){
         Product product = null;
@@ -66,4 +69,11 @@ public class ProductContainer
         }
         return copyFound;
     }
+
+	public UniqueProductCopy[] getAllUniqueProductCopies() {
+		if (uniqueProductCopies != null && !uniqueProductCopies.isEmpty()) {
+			return uniqueProductCopies.toArray(new UniqueProductCopy[0]);
+		}
+		return new UniqueProductCopy[0];
+	}
 }
