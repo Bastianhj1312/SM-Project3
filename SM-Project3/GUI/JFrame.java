@@ -13,6 +13,7 @@ import javax.swing.JToggleButton;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import Containers.ProductContainer;
@@ -148,47 +149,45 @@ public class JFrame extends javax.swing.JFrame {
         gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
         panel_1.setLayout(gbl_panel_1);
         
-                btnNewButton = new JButton("Lav ordre");
-                btnNewButton.addActionListener(new ActionListener() {
-                	public void actionPerformed(ActionEvent e) {
-                		// Inside actionPerformed
-                		try {
-                		    String staffId = textField.getText().trim();
-                		    String phoneNumber = textField_1.getText().trim();
-                		    String mængde = Mængde.getText().trim();
-                		    String productiD = list.getSelectedValue();
+        btnNewButton = new JButton("Lav ordre");
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String staffId = textField.getText().trim();
+                    String phoneNumber = textField_1.getText().trim();
+                    String mængde = Mængde.getText().trim();
+                    String productiD = list.getSelectedValue();
 
-                		    if (staffId.isEmpty() || phoneNumber.isEmpty() || mængde.isEmpty() || productiD == null) {
-                		        // Show error message (e.g., JOptionPane)
-                		        System.out.println("Please fill all fields and select a product.");
-                		        return;
-                		    }
+                    if (staffId.isEmpty() || phoneNumber.isEmpty() || mængde.isEmpty() || productiD == null) {
+                        JOptionPane.showMessageDialog(null, "Please fill all fields and select a product.");
+                        return;
+                    }
 
-                		    int staffID = Integer.parseInt(staffId);
-                		    int phonenumber = Integer.parseInt(phoneNumber);
-                		    int quantity = Integer.parseInt(mængde);
+                    int staffID = Integer.parseInt(staffId);
+                    int quantity = Integer.parseInt(mængde);
 
-                		    boolean isBusinessCustomer = tglbtnNewToggleButton.isSelected();
-                		    customercontroller.findCustomer(phonenumber);
-                		    customercontroller.findEmployee(staffID);
+                    boolean isBusinessCustomer = tglbtnNewToggleButton.isSelected();
 
-                		    int productNo = Integer.parseInt(productiD.split(" - ")[0]);
-                		    Product selectedProduct = productcontroller.findProduct(productNo);
-                		    if (selectedProduct != null && currentOrder != null) {
-                		        currentOrder.addOrderLine(selectedProduct, quantity);
-                		    }
-                		    System.out.println("Order created with Staff ID: " + staffID + ", Phone Number: " + phonenumber + ", Is Business Customer: " + isBusinessCustomer);
-                            System.out.println("Product selected: " + selectedProduct.getProductName() + ", Quantity: " + quantity);
-                		    textField.setText("");
-                		    textField_1.setText("");
-                		    Mængde.setText("");
-                		    list.clearSelection();
-                		} catch (NumberFormatException ex) {
-                		    System.out.println("Please enter valid numbers for Staff ID, Phone Number, and Quantity.");
-                		}
+                    if (isBusinessCustomer) {
+                        int cvr = Integer.parseInt(phoneNumber);
+                        orderController.addBusinessCustomerToOrder(cvr);
+                    } else {
+                        int phonenumber = Integer.parseInt(phoneNumber);
+                        orderController.addCustomertoOrder(phonenumber);
+                        orderController.addEmployeetoOrder(staffID);
+                    }
 
-                	}
-                });
+                    int productNo = Integer.parseInt(productiD.split(" - ")[0]);
+                    orderController.addProductToOrder(productNo, quantity);
+
+                    // Clear fields
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Please enter valid numbers for Staff ID, Phone Number, and Quantity.");
+                }
+            }
+        });
+
+
                 
                 GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
                 gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
@@ -198,6 +197,17 @@ public class JFrame extends javax.swing.JFrame {
                 panel_1.add(btnNewButton, gbc_btnNewButton);
                 
                 btnNewButton_1 = new JButton("Print kvittering");
+                btnNewButton_1.addActionListener(new ActionListener() {
+                	public void actionPerformed(ActionEvent e) {
+                		Order order = orderController.getOrder();
+                		if (order != null) {
+                		    ReceiptGUI receipt = new ReceiptGUI(order);
+                		    receipt.setVisible(true);
+                		} else {
+                		    JOptionPane.showMessageDialog(null, "No order to print receipt for.");
+                		}
+                	}
+                });
                 GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
                 gbc_btnNewButton_1.gridx = 0;
                 gbc_btnNewButton_1.gridy = 1;
