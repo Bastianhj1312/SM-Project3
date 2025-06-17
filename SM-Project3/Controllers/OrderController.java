@@ -54,4 +54,14 @@ public class OrderController {
     public Order getOrder() {
         return order;
     }
+
+	public void finishOrder(Order currentOrder) {
+				if (currentOrder != null) {
+			OrderContainer.getInstance().saveOrder(currentOrder);
+			order = null; // Reset the order after finishing
+		} else {
+			System.out.println("Ingen ordre at afslutte.");
+		}
+		
+	}
 }

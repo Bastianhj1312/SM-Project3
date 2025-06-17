@@ -119,11 +119,12 @@ public class JFrame extends javax.swing.JFrame {
 
         JToggleButton tglbtnNewToggleButton = new JToggleButton("Tryk for forretningskunde");
         GridBagConstraints gbc_tglbtnNewToggleButton = new GridBagConstraints();
+        gbc_tglbtnNewToggleButton.fill = GridBagConstraints.HORIZONTAL;
         gbc_tglbtnNewToggleButton.insets = new Insets(0, 0, 5, 0);
         gbc_tglbtnNewToggleButton.gridx = 1;
         gbc_tglbtnNewToggleButton.gridy = 2;
         panel.add(tglbtnNewToggleButton, gbc_tglbtnNewToggleButton);
-        
+
         JLabel lblNewLabel_3 = new JLabel("Indtast mængde");
         GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
         gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
@@ -131,7 +132,7 @@ public class JFrame extends javax.swing.JFrame {
         gbc_lblNewLabel_3.gridx = 0;
         gbc_lblNewLabel_3.gridy = 3;
         panel.add(lblNewLabel_3, gbc_lblNewLabel_3);
-        
+
         Mængde = new JTextField();
         GridBagConstraints gbc_mængde = new GridBagConstraints();
         gbc_mængde.fill = GridBagConstraints.HORIZONTAL;
@@ -144,74 +145,129 @@ public class JFrame extends javax.swing.JFrame {
         contentPane.add(panel_1, BorderLayout.EAST);
         GridBagLayout gbl_panel_1 = new GridBagLayout();
         gbl_panel_1.columnWidths = new int[]{79, 0};
-        gbl_panel_1.rowHeights = new int[]{23, 0, 0};
+        gbl_panel_1.rowHeights = new int[]{23, 0, 0, 0, 0};
         gbl_panel_1.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-        gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+        gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         panel_1.setLayout(gbl_panel_1);
-        
-        btnNewButton = new JButton("Lav ordre");
+
+        btnNewButton = new JButton("Tilføj produkt til ordre");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String staffId = textField.getText().trim();
-                    String phoneNumber = textField_1.getText().trim();
-                    String mængde = Mængde.getText().trim();
+                    String mængde = Mængde.getText();
                     String productiD = list.getSelectedValue();
 
-                    if (staffId.isEmpty() || phoneNumber.isEmpty() || mængde.isEmpty() || productiD == null) {
+                    if (mængde.isEmpty() || productiD == null) {
                         JOptionPane.showMessageDialog(null, "Please fill all fields and select a product.");
                         return;
                     }
 
-                    int staffID = Integer.parseInt(staffId);
                     int quantity = Integer.parseInt(mængde);
-
-                    boolean isBusinessCustomer = tglbtnNewToggleButton.isSelected();
-
-                    if (isBusinessCustomer) {
-                        int cvr = Integer.parseInt(phoneNumber);
-                        orderController.addBusinessCustomerToOrder(cvr);
-                    } else {
-                        int phonenumber = Integer.parseInt(phoneNumber);
-                        orderController.addCustomertoOrder(phonenumber);
-                        orderController.addEmployeetoOrder(staffID);
-                    }
-
                     int productNo = Integer.parseInt(productiD.split(" - ")[0]);
+                    if (currentOrder == null) {
+                        JOptionPane.showMessageDialog(null, "Please create an order first.");
+                        return;
+                    }
                     orderController.addProductToOrder(productNo, quantity);
-
-                    // Clear fields
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Please enter valid numbers for Staff ID, Phone Number, and Quantity.");
+                    JOptionPane.showMessageDialog(null, "Please enter a valid number for Quantity.");
                 }
             }
         });
 
+        GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+        gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
+        gbc_btnNewButton.anchor = GridBagConstraints.NORTHWEST;
+        gbc_btnNewButton.gridx = 0;
+        gbc_btnNewButton.gridy = 0;
+        panel_1.add(btnNewButton, gbc_btnNewButton);
 
-                
-                GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-                gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-                gbc_btnNewButton.anchor = GridBagConstraints.NORTHWEST;
-                gbc_btnNewButton.gridx = 0;
-                gbc_btnNewButton.gridy = 0;
-                panel_1.add(btnNewButton, gbc_btnNewButton);
-                
-                btnNewButton_1 = new JButton("Print kvittering");
-                btnNewButton_1.addActionListener(new ActionListener() {
-                	public void actionPerformed(ActionEvent e) {
-                		Order order = orderController.getOrder();
-                		if (order != null) {
-                		    ReceiptGUI receipt = new ReceiptGUI(order);
-                		    receipt.setVisible(true);
-                		} else {
-                		    JOptionPane.showMessageDialog(null, "No order to print receipt for.");
-                		}
-                	}
-                });
-                GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-                gbc_btnNewButton_1.gridx = 0;
-                gbc_btnNewButton_1.gridy = 1;
-                panel_1.add(btnNewButton_1, gbc_btnNewButton_1);
+        btnNewButton_1 = new JButton("Print kvittering");
+        btnNewButton_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Order order = orderController.getOrder();
+                if (order != null) {
+                    ReceiptGUI receipt = new ReceiptGUI(order);
+                    receipt.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No order to print receipt for.");
+                }
+            }
+        });
+
+        JButton btnNewButton_2 = new JButton("Lav ordre");
+        btnNewButton_2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String staffId = textField.getText();
+                String phoneNumber = textField_1.getText();
+                boolean isBusinessCustomer = tglbtnNewToggleButton.isSelected();
+
+                if (isBusinessCustomer) {
+                    int cvr = Integer.parseInt(phoneNumber);
+                    orderController.addBusinessCustomerToOrder(cvr);
+                    currentOrder = orderController.getOrder();
+                    if (currentOrder == null) {
+                        JOptionPane.showMessageDialog(null, "Failed to create order. Please check the input.");
+                        return;
+                    }
+                    int staffID = Integer.parseInt(staffId);
+                    orderController.addEmployeetoOrder(staffID);
+                } else if (phoneNumber.isEmpty() || staffId.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please fill all fields.");
+                } else if (!phoneNumber.matches("\\d+")) {
+                    JOptionPane.showMessageDialog(null, "Phone number must be numeric.");
+                } else if (!staffId.matches("\\d+")) {
+                    JOptionPane.showMessageDialog(null, "Staff ID must be numeric.");
+                } else {
+                    int phonenumber = Integer.parseInt(phoneNumber);
+                    int staffID = Integer.parseInt(staffId);
+                    orderController.addCustomertoOrder(phonenumber);
+                    orderController.addEmployeetoOrder(staffID);
+                    currentOrder = orderController.getOrder();
+                }
+            }
+        });
+
+        GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
+        gbc_btnNewButton_2.fill = GridBagConstraints.HORIZONTAL;
+        gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 0);
+        gbc_btnNewButton_2.gridx = 0;
+        gbc_btnNewButton_2.gridy = 1;
+        panel_1.add(btnNewButton_2, gbc_btnNewButton_2);
+
+        GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
+        gbc_btnNewButton_1.fill = GridBagConstraints.HORIZONTAL;
+        gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 0);
+        gbc_btnNewButton_1.gridx = 0;
+        gbc_btnNewButton_1.gridy = 2;
+        panel_1.add(btnNewButton_1, gbc_btnNewButton_1);
+        
+        JButton btnNewButton_3 = new JButton("Afslut Ordre");
+        btnNewButton_3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (currentOrder == null) {
+                    JOptionPane.showMessageDialog(null, "No order to finish.");
+                    return;
+                }
+                // Example: Save or finalize the order
+                orderController.finishOrder(currentOrder); // Implement this in your controller
+
+                JOptionPane.showMessageDialog(null, "Order finished successfully!");
+
+                // Reset for new order
+                currentOrder = null;
+                textField.setText("");
+                textField_1.setText("");
+                Mængde.setText("");
+                list.clearSelection();
+            }
+        });
+
+        GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
+        gbc_btnNewButton_3.fill = GridBagConstraints.HORIZONTAL;
+        gbc_btnNewButton_3.gridx = 0;
+        gbc_btnNewButton_3.gridy = 3;
+        panel_1.add(btnNewButton_3, gbc_btnNewButton_3);
 
         JPanel panel_2 = new JPanel();
         contentPane.add(panel_2, BorderLayout.CENTER);
@@ -221,9 +277,8 @@ public class JFrame extends javax.swing.JFrame {
         panel_2.add(scrollPane, BorderLayout.CENTER);
         init();
         scrollPane.setViewportView(list);
-        
-        
     }
+
     private void init() {
         tryMe.start();
         ProductContainer productContainer = ProductContainer.getInstance();
@@ -247,5 +302,3 @@ public class JFrame extends javax.swing.JFrame {
         }
     }
 }
-    
-
