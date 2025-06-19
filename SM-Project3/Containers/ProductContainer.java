@@ -1,6 +1,7 @@
 package Containers;
 import Models.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Write a description of class ProductContainer here.
@@ -69,11 +70,11 @@ public class ProductContainer
         }
         return copyFound;
     }
-
-	public UniqueProductCopy[] getAllUniqueProductCopies() {
-		if (uniqueProductCopies != null && !uniqueProductCopies.isEmpty()) {
-			return uniqueProductCopies.toArray(new UniqueProductCopy[0]);
-		}
-		return new UniqueProductCopy[0];
+    // metode fra FFC til at finde alle produkter
+    public List<Product> findAll() {
+		return new ArrayList<>(this.products);
+	}
+    public List<UniqueProductCopy> findAllUniqueProductCopies() {
+		return new ArrayList<>(this.uniqueProductCopies);
 	}
 }

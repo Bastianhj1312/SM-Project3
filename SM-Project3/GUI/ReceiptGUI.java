@@ -5,6 +5,8 @@ import java.awt.*;
 import Models.Order;
 import Models.orderLine;
 import Models.Product;
+import Models.UniqueProductCopy;
+import Controllers.*;
 
 public class ReceiptGUI extends JDialog {
     private static final long serialVersionUID = 1L;
@@ -27,27 +29,42 @@ public class ReceiptGUI extends JDialog {
         getContentPane().add(buttonPane, BorderLayout.SOUTH);
     }
 
+    private String getSerialNumbersForProduct(Product p, ProductController productcontroller) {
+        StringBuilder serials = new StringBuilder();
+        for (UniqueProductCopy copy : productcontroller.findAllUniqueProductCopies()) {
+            if (copy.getProduct().equals(p)) {
+                if (serials.length() > 0) serials.append(", ");
+                serials.append(copy.getSerialNumber());
+            }
+        }
+        return serials.length() > 0 ? " | Serials: " + serials : "";
+    }
+
     private String buildReceipt(Order order) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Employee: ").append(order.getEmployee().getName())
-          .append(" (ID: ").append(order.getEmployee().getStaffID()).append(")\n");
-        sb.append("Customer: ").append(order.getCustomer().getName()).append("\n");
-        sb.append("Order lines:\n");
+        ProductController productcontroller = new ProductController();
+        String receipt = "Employee: " + order.getEmployee().getName() +
+                         " (ID: " + order.getEmployee().getStaffID() + ")\n" +
+                         "Customer: " + order.getCustomer().getName() + "\n" +
+                         "Order lines:\n";
 
         double total = 0.0;
         for (orderLine ol : order.getOrderLines()) {
             Product p = ol.getProduct();
-            sb.append("- ").append(p.getProductName())
-              .append(" (No: ").append(p.getProductNo()).append("), Qty: ")
-              .append(ol.getQuantity()).append(", Unit: ")
-              .append(p.getSellingPrice()).append(", Line: ")
-              .append(ol.getLineTotal()).append("\n");
-            if (ol.isUnique()) {
-                sb.append("  Serial: ").append(ol.getUniqueProductCopy().getSerialNumber()).append("\n");
+            receipt += "- " + p.getProductName() +
+                       " (No: " + p.getProductNo() + "), Qty: " +
+                       ol.getQuantity() + ", Unit: " +
+                       p.getSellingPrice() + ", Line: " +
+                       ol.getLineTotal();
+
+            if (p.isUniqueProduct()) {
+                receipt += getSerialNumbersForProduct(p, productcontroller);
             }
+            receipt += "\n";
             total += ol.getLineTotal();
         }
-        sb.append("\nTotal: ").append(total).append(" kr");
-        return sb.toString();
+        receipt += "\nTotal: " + total + " kr";
+        return receipt;
     }
+ 
+
 }

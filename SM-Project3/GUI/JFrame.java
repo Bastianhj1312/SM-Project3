@@ -153,25 +153,7 @@ public class JFrame extends javax.swing.JFrame {
         btnNewButton = new JButton("Tilføj produkt til ordre");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                    String mængde = Mængde.getText();
-                    String productiD = list.getSelectedValue();
-
-                    if (mængde.isEmpty() || productiD == null) {
-                        JOptionPane.showMessageDialog(null, "Please fill all fields and select a product.");
-                        return;
-                    }
-
-                    int quantity = Integer.parseInt(mængde);
-                    int productNo = Integer.parseInt(productiD.split(" - ")[0]);
-                    if (currentOrder == null) {
-                        JOptionPane.showMessageDialog(null, "Please create an order first.");
-                        return;
-                    }
-                    orderController.addProductToOrder(productNo, quantity);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Please enter a valid number for Quantity.");
-                }
+            	addProductToOrder();
             }
         });
 
@@ -250,7 +232,7 @@ public class JFrame extends javax.swing.JFrame {
                     return;
                 }
                 // Example: Save or finalize the order
-                orderController.finishOrder(currentOrder); // Implement this in your controller
+                orderController.finishOrder(currentOrder);
 
                 JOptionPane.showMessageDialog(null, "Order finished successfully!");
 
@@ -272,27 +254,29 @@ public class JFrame extends javax.swing.JFrame {
         JPanel panel_2 = new JPanel();
         contentPane.add(panel_2, BorderLayout.CENTER);
         panel_2.setLayout(new BorderLayout(0, 0));
-
+        listModel = new DefaultListModel<>();
+        list = new JList<>(listModel);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane = new JScrollPane();
         panel_2.add(scrollPane, BorderLayout.CENTER);
-        init();
         scrollPane.setViewportView(list);
+        init();
+        findAllProducts();
+        
     }
 
     private void init() {
         tryMe.start();
-        ProductContainer productContainer = ProductContainer.getInstance();
-
-        listModel = new DefaultListModel<>();
-        list = new JList<>(listModel);
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        for (Product p : productContainer.getAllProducts()) {
+       
+        
+    }
+    private void findAllProducts() {
+    	for (Product p : productcontroller.findAll()) {
             String display = p.getProductNo() + " - " + p.getProductName();
             // Check if product is UniqueProduct
-            if (p instanceof Models.UniqueProduct) {
+            if (p.isUniqueProduct()) {
                 // Show all serial numbers for this unique product
-                for (Models.UniqueProductCopy copy : productContainer.getAllUniqueProductCopies()) {
+                for (Models.UniqueProductCopy copy : productcontroller.findAllUniqueProductCopies()) {
                     if (copy.getProduct().equals(p)) {
                         display += " | Serial: " + copy.getSerialNumber();
                     }
@@ -300,5 +284,26 @@ public class JFrame extends javax.swing.JFrame {
             }
             listModel.addElement(display);
         }
+    }
+    private void addProductToOrder() {
+    	 try {
+             String mængde = Mængde.getText();
+             String productiD = list.getSelectedValue();
+
+             if (mængde.isEmpty() || productiD == null) {
+                 JOptionPane.showMessageDialog(null, "Please fill all fields and select a product.");
+                 return;
+             }
+
+             int quantity = Integer.parseInt(mængde);
+             int productNo = Integer.parseInt(productiD.split(" - ")[0]);
+             if (currentOrder == null) {
+                 JOptionPane.showMessageDialog(null, "Please create an order first.");
+                 return;
+             }
+             orderController.addProductToOrder(productNo, quantity);
+         } catch (NumberFormatException ex) {
+             JOptionPane.showMessageDialog(null, "Please enter a valid number for Quantity.");
+         }
     }
 }

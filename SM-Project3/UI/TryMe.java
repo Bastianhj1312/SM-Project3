@@ -36,7 +36,7 @@ public class TryMe {
 
     // lav kunder
     PrivateCustomer customer = new PrivateCustomer("Peter", 1234);
-    BusinessCustomer bcustomer = new BusinessCustomer("Søren", 12345678);
+    BusinessCustomer bcustomer = new BusinessCustomer("Tømrer firmaet", 12345678);
     Employee employee = new Employee("Per", 1);
     customerContainer.savePrivateCustomer(customer);
     customerContainer.saveBusinessCustomer(bcustomer);

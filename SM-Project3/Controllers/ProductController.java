@@ -2,6 +2,7 @@ package Controllers;
 import Models.*;
 import Containers.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Write a description of class ProductController here.
@@ -24,4 +25,10 @@ public class ProductController {
     public UniqueProductCopy findUniqueProductCopy(int productNo, int serialNumber) {
         return productcontainer.findUniqueProductCopy(productNo, serialNumber);
     }
+    public List<Product> findAll() {
+		return productcontainer.getInstance().findAll();
+	}
+    public List<UniqueProductCopy> findAllUniqueProductCopies() {
+		return productcontainer.findAllUniqueProductCopies();
+	}
 }
